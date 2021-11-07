@@ -61,8 +61,8 @@ all: main-build
 main-build: stm32\ _uart3DMA.elf secondary-outputs
 
 # Tool invocations
-stm32\ _uart3DMA.elf: $(OBJS) $(USER_OBJS) C:\Users\Leonel\Desktop\PIP\STM32\stm32\ _uart3DMA\STM32F103C8TX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "stm32 _uart3DMA.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"C:\Users\Leonel\Desktop\PIP\STM32\stm32 _uart3DMA\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="stm32 _uart3DMA.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+stm32\ _uart3DMA.elf: $(OBJS) $(USER_OBJS) C:\Users\Facu\Desktop\repo\stm32_uart3Dma\STM32F103C8TX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "stm32 _uart3DMA.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"C:\Users\Facu\Desktop\repo\stm32_uart3Dma\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="stm32 _uart3DMA.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

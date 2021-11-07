@@ -9,17 +9,17 @@ CDefines=USE_HAL_DRIVER;STM32F103xB;USE_HAL_DRIVER;USE_HAL_DRIVER;
 [PreviousGenFiles]
 AdvancedFolderStructure=true
 HeaderFileListSize=3
-HeaderFiles#0=C:/Users/Leonel/Desktop/PIP/STM32/stm32 _uart3DMA/Core/Inc/stm32f1xx_it.h
-HeaderFiles#1=C:/Users/Leonel/Desktop/PIP/STM32/stm32 _uart3DMA/Core/Inc/stm32f1xx_hal_conf.h
-HeaderFiles#2=C:/Users/Leonel/Desktop/PIP/STM32/stm32 _uart3DMA/Core/Inc/main.h
+HeaderFiles#0=C:/Users/Facu/Desktop/repo/stm32_uart3Dma/Core/Inc/stm32f1xx_it.h
+HeaderFiles#1=C:/Users/Facu/Desktop/repo/stm32_uart3Dma/Core/Inc/stm32f1xx_hal_conf.h
+HeaderFiles#2=C:/Users/Facu/Desktop/repo/stm32_uart3Dma/Core/Inc/main.h
 HeaderFolderListSize=1
-HeaderPath#0=C:/Users/Leonel/Desktop/PIP/STM32/stm32 _uart3DMA/Core/Inc
+HeaderPath#0=C:/Users/Facu/Desktop/repo/stm32_uart3Dma/Core/Inc
 HeaderFiles=;
 SourceFileListSize=3
-SourceFiles#0=C:/Users/Leonel/Desktop/PIP/STM32/stm32 _uart3DMA/Core/Src/stm32f1xx_it.c
-SourceFiles#1=C:/Users/Leonel/Desktop/PIP/STM32/stm32 _uart3DMA/Core/Src/stm32f1xx_hal_msp.c
-SourceFiles#2=C:/Users/Leonel/Desktop/PIP/STM32/stm32 _uart3DMA/Core/Src/main.c
+SourceFiles#0=C:/Users/Facu/Desktop/repo/stm32_uart3Dma/Core/Src/stm32f1xx_it.c
+SourceFiles#1=C:/Users/Facu/Desktop/repo/stm32_uart3Dma/Core/Src/stm32f1xx_hal_msp.c
+SourceFiles#2=C:/Users/Facu/Desktop/repo/stm32_uart3Dma/Core/Src/main.c
 SourceFolderListSize=1
-SourcePath#0=C:/Users/Leonel/Desktop/PIP/STM32/stm32 _uart3DMA/Core/Src
+SourcePath#0=C:/Users/Facu/Desktop/repo/stm32_uart3Dma/Core/Src
 SourceFiles=;
 

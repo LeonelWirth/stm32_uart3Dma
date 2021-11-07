@@ -22,7 +22,9 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "stdlib.h"
+#include "string.h"
+#include <stdio.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -42,6 +44,7 @@
 /* Private variables ---------------------------------------------------------*/
 UART_HandleTypeDef huart3;
 DMA_HandleTypeDef hdma_usart3_rx;
+DMA_HandleTypeDef hdma_usart3_tx;
 
 /* USER CODE BEGIN PV */
 
@@ -59,7 +62,8 @@ static void MX_USART3_UART_Init(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
-uint8_t bufDMA [10]={0};
+uint8_t bufSendDMA [8]={0};
+uint8_t bufReceiveDMA [8]={0};
 
 
 /* USER CODE END 0 */
@@ -96,7 +100,8 @@ int main(void)
   MX_USART3_UART_Init();
   /* USER CODE BEGIN 2 */
 
-  HAL_UART_Receive_DMA(&huart3, bufDMA, sizeof(bufDMA));
+  HAL_UART_Receive_DMA(&huart3, bufReceiveDMA, sizeof(bufReceiveDMA));
+  HAL_UART_Transmit_DMA(&huart3, (uint8_t*)bufSendDMA, sizeof (bufSendDMA));
 
   /* USER CODE END 2 */
 
@@ -192,6 +197,9 @@ static void MX_DMA_Init(void)
   __HAL_RCC_DMA1_CLK_ENABLE();
 
   /* DMA interrupt init */
+  /* DMA1_Channel2_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA1_Channel2_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(DMA1_Channel2_IRQn);
   /* DMA1_Channel3_IRQn interrupt configuration */
   HAL_NVIC_SetPriority(DMA1_Channel3_IRQn, 0, 0);
   HAL_NVIC_EnableIRQ(DMA1_Channel3_IRQn);
@@ -205,20 +213,43 @@ static void MX_DMA_Init(void)
   */
 static void MX_GPIO_Init(void)
 {
+  GPIO_InitTypeDef GPIO_InitStruct = {0};
 
   /* GPIO Ports Clock Enable */
+  __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOD_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin : PC13 */
+  GPIO_InitStruct.Pin = GPIO_PIN_13;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
 }
 
 /* USER CODE BEGIN 4 */
 
-void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) // Callback que e ejecuta cuando se completo una recepcion
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) // Callback que e ejecuta cuando se completo una recepcion.
+//La recepción se completa cuando se completa el buffer, hasta entonces no se entra en la función. ES ALGO QUE HAY QUE TENNER EN CUENTA.
+
 {
-    HAL_UART_Transmit(&huart3, bufDMA, sizeof(bufDMA), 100); // Reenvio lo que recibi para comprobar
-    HAL_UART_Receive_DMA(&huart3, bufDMA, sizeof(bufDMA)); // Vuelvo a iniciar la recepcion por DMA
+	HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);
+	HAL_UART_Transmit_DMA(&huart3, bufReceiveDMA, 7);// Reenvio lo que recibi para comprobar
+	HAL_UART_Receive_DMA(&huart3, bufReceiveDMA, sizeof(bufReceiveDMA)); // Vuelvo a iniciar la recepcion por DMA
+
+}
+
+
+void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart)
+{
+
+
 }
 
 /* USER CODE END 4 */
